@@ -1,10 +1,10 @@
-import { PrismaClient } from "@prisma/client";
+import { Category, PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient()
 
 export async function GET(){
     try {
-        const categories = await prisma.category.findMany();
+        const categories: Category[] = await prisma.category.findMany();
         return Response.json(categories);
     } catch (error) {
         console.error("Failed to get categories: ", error);
@@ -12,11 +12,14 @@ export async function GET(){
     }
 }
 
-export async function POST(request: Request, category : any) {
+export async function POST(request: Request) {
+
+    const {name} = await request.json();
+
     try {
         const savedCategory = await prisma.category.create({
             data: {
-                name: category.name
+                name: name,
             }
         });
 
