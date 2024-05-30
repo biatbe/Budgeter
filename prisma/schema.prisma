@@ -16,13 +16,15 @@ datasource db {
 model Category {
   id       Int        @id @default(autoincrement())
   name     String     @unique
-  instance Instance[] 
+  instance Instance[]
 }
 
 model Instance {
-  id         Int      @id @default(autoincrement())
-  date       DateTime
-  income     Boolean
-  category   Category @relation(fields: [categoryId], references: [id])
-  categoryId Int
+  id          Int      @id @default(autoincrement())
+  date        DateTime @default(now())
+  income      Boolean
+  amount      Int
+  category    Category @relation(fields: [categoryId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  categoryId  Int
+  description String?
 }

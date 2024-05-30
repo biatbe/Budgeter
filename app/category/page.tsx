@@ -1,16 +1,8 @@
 import CategoryDropdown from "./(components)/Dropdown";
 
-
-export default async function CategoryHandler() {
-
-    const categories = await fetch("http://localhost:3000/api/category", {
-        cache: "no-cache"
-    }).then(async (res) => await res.json())
-
+export default function CategoryHandler({onCategoryChange, selectedCategory, categories}) {
 
     return (
-        <>
-            <CategoryDropdown categories={categories}/>
-        </>
+        <CategoryDropdown categories={categories} onCategoryChange={onCategoryChange} selectedCategory={selectedCategory}/>
     )
 }

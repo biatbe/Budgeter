@@ -4,11 +4,11 @@
 
 
 body {
-  color: white;
+  color: black;
   height: 100%;
   width: 100%;
   margin: 0;
-  background: black;
+  background: rgb(241, 241, 241);
 }
 
 html {
