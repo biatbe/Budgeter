@@ -29,3 +29,44 @@ export async function POST(request: Request) {
         return Response.json("Internal server error: ", error)
     }
 }
+
+export async function DELETE(request: Request) {
+
+    const {categoryId} = await request.json();
+
+    try {
+        await prisma.category.delete({
+            where: {
+                id: categoryId
+            }
+        })
+        
+        return Response.json({status: 200})
+
+    } catch (error) {
+        console.error("Failed to delete category: ", error);
+        return Response.json("Internal server error: ", error);
+    }
+}
+
+export async function PUT(request: Request) {
+
+    const {category} : {category : Category} = await request.json();
+
+    try {
+        const updatedCategory : Category = await prisma.category.update({
+            where: {
+                id: parseInt(String(category.id))
+            }, 
+            data : {
+                name: category.name,
+            }
+        })
+        
+        return Response.json(updatedCategory)
+
+    } catch (error) {
+        console.error("Failed to update category: ", error);
+        return Response.json("Internal server error: ", error);
+    }
+}
